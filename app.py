@@ -1,11 +1,6 @@
-import numpy as np
 import flask
 from flask import render_template
 import pickle
-import joblib
-import sklearn
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
 
 app = flask.Flask(__name__, template_folder='templates')
 
@@ -17,7 +12,7 @@ def main():
         return render_template('main.html')
     if flask.request.method == 'POST':
         with open('net_model.pkl', 'rb') as f:
-            loader_model = joblib.load(f)
+            loader_model = pickle.load(f)
 
         X1 = float(flask.request.form['matr'])
         X2 = float(flask.request.form['plotn'])
@@ -31,7 +26,6 @@ def main():
         X10 = float(flask.request.form['shag'])
         X11 = float(flask.request.form['p_nash'])
         y_pred_LR_all = loader_model.predict([[X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11]])
-        # y_pred_LR_all = [X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11]
 
         return render_template('main.html', result=y_pred_LR_all)
 
