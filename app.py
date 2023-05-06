@@ -27,7 +27,7 @@ def main():
         X11 = float(flask.request.form['p_nash'])
         y_pred_LR_all = loader_model.predict([[X1, X2, X3, X4, X5, X6, X7, X8, X9, X10, X11]])
 
-        return render_template('main.html', result=y_pred_LR_all)
+        return render_template('main.html', modul=y_pred_LR_all[0][0], proch=y_pred_LR_all[0][1])
 
 
 if __name__ == '__main__':
